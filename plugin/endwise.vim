@@ -83,6 +83,15 @@ augroup endwise " {{{1
         \ let b:endwise_addition = 'endsnippet' |
         \ let b:endwise_words = 'snippet' |
         \ let b:endwise_syngroups = 'snipSnippet,snipSnippetHeader,snipSnippetHeaderKeyword'
+  autocmd FileType fortran
+        \ let b:endwise_addition = '\="end " . submatch(0)' |
+        \ let b:endwise_words = 'associate,block,critical,do,enum,forall,function,if,interface,module,procedure,program,select,submodule,subroutine,type,where' |
+        \ let b:endwise_pattern =
+        \ '^\s*\%(associate\|block\|critical\|do\|enum\|forall\|function\|interface\|module\|procedure\|program\|submodule\|subroutine\|type\)\>'
+        \ . '\|^\s*\<\%(else\s*\)\@<!if\%(\s*(.\+)\s*then\s*$\)\@='
+        \ . '\|^\s*select\%(\s\+case\s*(.\+)\s*$\)\@='
+        \ . '\|^\s*\<\%(else\s*\)\@<!where\%(\s*(.\+)\s*$\)\@=' |
+        \ let b:endwise_syngroups = 'fortranConditional,fortranRepeat,fortranType,fortranUnitHeader'
   autocmd FileType * call s:abbrev()
 augroup END " }}}1
 
